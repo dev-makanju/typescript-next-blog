@@ -14,6 +14,9 @@ const authOptions: AuthOptions = {
             clientSecret:process.env.GOOGLE_SECRET_ID as string,
         }),
     ],
+    pages: {
+      signIn: '/sign-in'  
+    },
     secret: process.env.NEXTAUTH_SECRET
 }
 
