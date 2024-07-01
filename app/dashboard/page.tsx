@@ -1,8 +1,16 @@
 import { postsData } from "@/data"
 import Link from "next/link"
 import PostCard from "@/components/cards/PostCard"
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default function Dashboard(){
+
+export default async function Dashboard(){
+    const session = await getServerSession(authOptions)
+    if(!session){
+       redirect('/sign-in')
+    }
     return (
         <div>
             <div>Dashboard</div>
