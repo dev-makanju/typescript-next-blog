@@ -5,10 +5,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function SignIn() {
     const session = await getServerSession(authOptions)
-    if(!session){
+    if(session){
        redirect('/dashboard')
     }
-    return (
-        <SignInBtns/>
-    )
+    return <SignInBtns/>
 }

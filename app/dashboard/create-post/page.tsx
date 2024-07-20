@@ -5,6 +5,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function CreatePost(){
     const session = await getServerSession(authOptions)
+    console.log(session)
     if(!session){
        redirect('/sign-in')
     }
