@@ -4,6 +4,7 @@ import PostCard from "@/components/cards/PostCard"
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import CartegoryList from "@/components/category/CartegoryList";
 
 export default async function Dashboard(){
     const session = await getServerSession(authOptions)
@@ -12,7 +13,7 @@ export default async function Dashboard(){
     }
     return (
         <div>
-            <div>Dashboard</div>
+            <div><CartegoryList/></div>
             {postsData && postsData.length > 0 ? 
                 postsData.map((post)  => (<PostCard
                     id={post.id}
