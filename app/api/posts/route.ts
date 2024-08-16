@@ -5,14 +5,13 @@ import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
-
-//   if (!session) {
-//     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-//   }
+  if (!session) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
 
   const { title, content, links, selectedCategory, imageUrl, publicId } = await req.json();
 
-  const authorEmail = 'makurseme@gmail.com'//session?.user?.email as string;
+  const authorEmail = session?.user?.email as string
 
   if (!title || !content) {
     return NextResponse.json(

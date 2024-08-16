@@ -2,15 +2,17 @@ import Link from "next/link";
 import { TCartegory } from "@/types";
 
 const getCategories = async (): Promise<TCartegory[] | null> => {
-   try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/categories`);
+  try {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/cartegories`);
     if (res.ok) {
-      const categories = await res.json();
-      return categories;
+      const data = await res.json();
+      return data.cartegories;
+    } else {
+      console.error('Failed to fetch categories:', res.statusText);
     }
-   } catch (error) {
-    console.log(error);
-   }
+  } catch (error) {
+    console.error('An error occurred while fetching categories:', error);
+  }
   return null;
 };
 
@@ -18,7 +20,7 @@ export default async function CategoriesList() {
   const categories = await getCategories();
   return (
     <div className="flex gap-2 text-sm flex-wrap">
-      {categories &&
+      {categories ? (
         categories.map((category) => (
           <Link
             key={category.id}
@@ -27,7 +29,10 @@ export default async function CategoriesList() {
           >
             {category.catName}
           </Link>
-        ))}
+        ))
+      ) : (
+        <p>No categories available</p>
+      )}
     </div>
   );
-}  
+}
